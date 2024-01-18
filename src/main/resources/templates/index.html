@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSE Test</title>
+  </head>
+  <body>
+    <script>
+      const eventSource = new EventSource(
+        "http://localhost:8080/api/v1/server-events"
+      );
+
+      eventSource.onmessage = function (event) {
+        const data = JSON.parse(event.data);
+        console.log(data);
+        // Handle the data as needed, e.g., update the UI
+      };
+
+      eventSource.onerror = function (error) {
+        console.error("EventSource failed:", error);
+        eventSource.close();
+      };
+    </script>
+  </body>
+</html>
